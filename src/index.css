@@ -1,0 +1,339 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-numeric: "Sora", "Inter", ui-sans-serif, sans-serif;
+
+  --color-primary-50: #eef4ff;
+  --color-primary-100: #d9e6ff;
+  --color-primary-200: #bcd3ff;
+  --color-primary-300: #8eb5ff;
+  --color-primary-400: #5a8cff;
+  --color-primary-500: #0f5fff;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e3f9e;
+  --color-primary-900: #1b357a;
+
+  --color-secondary-200: #fef0c7;
+  --color-secondary-300: #fdba74;
+  --color-secondary-400: #facc15;
+  --color-secondary-500: #eab308;
+  --color-secondary-600: #ca8a04;
+
+  --color-success-100: #d1fae5;
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+
+  --color-danger-100: #fee2e2;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+
+  --color-analytics-100: #ede9fe;
+  --color-analytics-400: #a78bfa;
+  --color-analytics-500: #8b5cf6;
+  --color-analytics-600: #7c3aed;
+
+  --color-surface: #f8fafc;
+  --color-ink: #0f172a;
+  --color-ink-800: #1e293b;
+  --color-ink-700: #334155;
+
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -14px rgba(15, 23, 42, 0.16);
+  --shadow-lift: 0 18px 44px -18px rgba(15, 23, 42, 0.28), 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-glow: 0 0 0 1px rgba(15, 95, 255, 0.28), 0 18px 44px -18px rgba(15, 95, 255, 0.55);
+
+  --animate-fade-in: fadeIn 0.5s ease both;
+  --animate-slide-up: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scale-in: scaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-blob: blob 18s ease-in-out infinite;
+  --animate-marquee: marquee 34s linear infinite;
+  --animate-ping-slow: pingSlow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-bar: barGrow 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) }
+  50% { transform: translateY(-14px) }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes blob {
+  0%, 100% { border-radius: 42% 58% 62% 38% / 44% 42% 58% 56%; transform: translate3d(0,0,0) rotate(0deg); }
+  50% { border-radius: 60% 40% 36% 64% / 58% 56% 44% 42%; transform: translate3d(12px,-18px,0) rotate(8deg); }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes pingSlow {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  70%, 100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes barGrow {
+  from { transform: scaleY(0.05); }
+  to { transform: scaleY(1); }
+}
+@keyframes progressStripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 32px 0; }
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-surface font-sans text-slate-700 antialiased dark:bg-ink dark:text-slate-300;
+  }
+  h1, h2, h3, h4, h5 {
+    @apply font-display font-extrabold tracking-tight text-slate-900 dark:text-white;
+    text-wrap: balance;
+  }
+  ::selection {
+    @apply bg-primary-500/25;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-ink-800;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-slate-600;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-500;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="month"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.45);
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .card-saas {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-soft transition-all duration-300 dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-lift hover:border-primary-300/70 dark:hover:border-primary-500/40;
+  }
+  .glass {
+    @apply border border-white/25 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/55;
+  }
+  .glass-strong {
+    @apply border border-white/30 bg-white/85 shadow-lift backdrop-blur-2xl dark:border-white/12 dark:bg-ink/85;
+  }
+  .input-saas {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs outline-none transition placeholder:text-slate-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/12 disabled:opacity-60 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-100 dark:placeholder:text-slate-500;
+  }
+  .label-saas {
+    @apply mb-1.5 block text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400;
+  }
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-500/25 disabled:pointer-events-none disabled:opacity-55;
+  }
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline,
+  .btn-ghost,
+  .btn-danger {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-500/25 disabled:pointer-events-none disabled:opacity-55;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-b from-primary-500 to-primary-600 text-white shadow-[0_10px_26px_-12px_rgba(15,95,255,0.8)] hover:brightness-110 active:scale-[0.985];
+  }
+  .btn-secondary {
+    @apply bg-secondary-400 text-slate-900 hover:bg-secondary-300 active:scale-[0.985];
+  }
+  .btn-outline {
+    @apply border border-slate-200 bg-white text-slate-700 hover:border-primary-400 hover:text-primary-600 dark:border-white/12 dark:bg-white/5 dark:text-slate-200 dark:hover:border-primary-400/60 dark:hover:text-white;
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/8 dark:hover:text-white;
+  }
+  .btn-danger {
+    @apply bg-danger-500 text-white hover:bg-danger-600;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.68rem] font-semibold;
+  }
+  .badge-primary,
+  .badge-success,
+  .badge-danger,
+  .badge-warn,
+  .badge-analytics,
+  .badge-muted {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.68rem] font-semibold;
+  }
+  .badge-primary { @apply border-primary-200 bg-primary-50 text-primary-700 dark:border-primary-500/30 dark:bg-primary-500/12 dark:text-primary-200; }
+  .badge-success { @apply border-success-500/30 bg-success-100 text-success-600 dark:bg-success-500/12 dark:text-success-400; }
+  .badge-danger { @apply border-danger-500/30 bg-danger-100 text-danger-600 dark:bg-danger-500/12 dark:text-danger-400; }
+  .badge-warn { @apply border-secondary-300/50 bg-secondary-200/70 text-secondary-600 dark:border-secondary-400/30 dark:bg-secondary-400/12 dark:text-secondary-300; }
+  .badge-analytics { @apply border-analytics-500/30 bg-analytics-100 text-analytics-600 dark:bg-analytics-500/12 dark:text-analytics-400; }
+  .badge-muted { @apply border-slate-200 bg-slate-100 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300; }
+  .pill-tab {
+    @apply rounded-full px-3.5 py-1.5 text-[0.75rem] font-semibold text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white;
+  }
+  .pill-tab-active {
+    @apply bg-primary-500 text-white shadow-[0_8px_20px_-10px_rgba(15,95,255,0.9)];
+  }
+  .table-saas {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .table-saas thead th {
+    @apply whitespace-nowrap border-b border-slate-200 px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:text-slate-400;
+  }
+  .table-saas tbody td {
+    @apply border-b border-slate-100 px-4 py-3 align-middle text-slate-700 dark:border-white/6 dark:text-slate-300;
+  }
+  .table-saas tbody tr {
+    @apply transition-colors hover:bg-slate-50/80 dark:hover:bg-white/4;
+  }
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-slate-200/70 dark:bg-white/8;
+    background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+  .progress-track {
+    @apply h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-white/10;
+  }
+  .stat-number {
+    @apply font-numeric font-bold tabular-nums text-slate-900 dark:text-white;
+  }
+  .chart-grid {
+    @apply stroke-slate-200 dark:stroke-white/10;
+  }
+  .scrim {
+    @apply fixed inset-0 z-40 bg-slate-900/45 backdrop-blur-sm;
+  }
+  .nav-item {
+    @apply relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[0.82rem] font-medium text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white;
+  }
+  .nav-item-active {
+    @apply bg-primary-50 text-primary-700 dark:bg-primary-500/14 dark:text-white;
+  }
+  .kanban-col {
+    @apply flex h-full min-h-[24rem] w-[19rem] shrink-0 flex-col rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3 dark:border-white/8 dark:bg-white/3;
+  }
+  .print-area {
+    @apply bg-white text-slate-900;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .text-gradient {
+    background: linear-gradient(96deg, #0f5fff, #8b5cf6 46%, #fac615 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.16) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .stagger > * {
+    animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0.02s }
+  .stagger > *:nth-child(2) { animation-delay: 0.07s }
+  .stagger > *:nth-child(3) { animation-delay: 0.12s }
+  .stagger > *:nth-child(4) { animation-delay: 0.17s }
+  .stagger > *:nth-child(5) { animation-delay: 0.22s }
+  .stagger > *:nth-child(6) { animation-delay: 0.27s }
+  .stagger > *:nth-child(7) { animation-delay: 0.32s }
+  .stagger > *:nth-child(8) { animation-delay: 0.37s }
+  .typing-dot {
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-current;
+    animation: typingBounce 1.1s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.15s }
+  .typing-dot:nth-child(3) { animation-delay: 0.3s }
+  .animate-stripes {
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.28) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.28) 75%, transparent 75%, transparent);
+    background-size: 32px 32px;
+    animation: progressStripes 1s linear infinite;
+  }
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible !important;
+  }
+  .print-area {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 24px;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
